@@ -29,6 +29,29 @@ const ScrollToTop = () => {
   return null;
 };
 
+const FlavorSwitcher = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const currentFlavor = queryParams.get('sabor') || 'morango';
+
+  return (
+    <div className="flex items-center gap-2 bg-white/5 rounded-full p-1 border border-white/10 mt-2">
+      <Link 
+        to="/?sabor=morango"
+        className={`px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full transition-all ${currentFlavor === 'morango' ? 'bg-strawberry text-white' : 'text-slate-400 hover:text-white'}`}
+      >
+        Morango
+      </Link>
+      <Link 
+        to="/?sabor=combo"
+        className={`px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full transition-all ${currentFlavor === 'combo' ? 'bg-tangerine text-white' : 'text-slate-400 hover:text-white'}`}
+      >
+        Combo
+      </Link>
+    </div>
+  );
+};
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -40,7 +63,7 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-black/80 backdrop-blur-md py-4 border-b border-white/5' : 'bg-transparent py-8'}`}>
-      <div className="max-w-7xl mx-auto px-4 md:px-12 flex items-center justify-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 flex flex-col items-center justify-center">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-600 rounded-sm shadow-xl"></div>
           <h1 className="text-xl md:text-2xl font-bold tracking-tighter uppercase whitespace-nowrap flex items-baseline">
@@ -48,6 +71,7 @@ const Navbar = () => {
             <span className="text-[12px] md:text-[14px] font-light tracking-[0.3em] text-slate-500 ml-3 italic opacity-80 lowercase">Drinks</span>
           </h1>
         </div>
+        <FlavorSwitcher />
       </div>
     </nav>
   );
@@ -77,7 +101,7 @@ const SectionHeading = ({ children, subtitle, centered = false }: { children: Re
   </div>
 );
 
-const BenefitCard = ({ icon: Icon, title, description, delay }: { icon: any, title: string, description: string, delay: number }) => (
+const BenefitCard = ({ icon: Icon, title, description, delay, accentColor = "text-neon-green" }: { icon: any, title: string, description: string, delay: number, accentColor?: string }) => (
   <motion.div 
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -85,7 +109,7 @@ const BenefitCard = ({ icon: Icon, title, description, delay }: { icon: any, tit
     transition={{ delay, duration: 0.5 }}
     className="bg-white/5 p-8 rounded-lg border border-white/10 hover:border-white/20 transition-all flex items-start gap-4 group"
   >
-    <div className="p-3 bg-white/5 rounded-md text-neon-green group-hover:scale-110 transition-transform">
+    <div className={`p-3 bg-white/5 rounded-md ${accentColor} group-hover:scale-110 transition-transform`}>
       <Icon size={20} />
     </div>
     <div>
@@ -117,7 +141,33 @@ const TestimonialCard = ({ name, role, text, delay }: { name: string, role: stri
   </motion.div>
 );
 
+const FLAVORS = {
+  morango: {
+    title: "VELMO BLACK Drinks Morango",
+    description: "Transforme sua rotina com o sabor irresistível de morango. Uma bebida funcional moderna, refrescante e pensada para quem busca equilíbrio.",
+    image: "https://i.postimg.cc/SNgsZTJF/velmo-black-morango-potes-1.png",
+    colorGradient: "from-white to-strawberry",
+    benefitAccent: "text-strawberry",
+    flavorText: "morango",
+    affiliateLink: "https://pay.hest.com.br/33469a7a-7d47-40ee-b807-fd617640f4d1"
+  },
+  combo: {
+    title: "VELMO BLACK Combo",
+    description: "Conquiste resultados completos com o nosso combo exclusivo. A solução prática para uma rotina mais completa e equilibrada.",
+    image: "https://i.postimg.cc/524NdGLj/velmo-duo-040405-v2.png",
+    colorGradient: "from-white to-tangerine",
+    benefitAccent: "text-tangerine",
+    flavorText: "combo",
+    affiliateLink: "https://pay.hest.com.br/64568055-9727-4d1e-aa22-2b72976c8fac"
+  }
+};
+
 const Home = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const flavorKey = (queryParams.get('sabor') as 'morango' | 'combo') || 'morango';
+  const config = FLAVORS[flavorKey] || FLAVORS.morango;
+
   return (
     <div className="min-h-screen bg-[#050505]">
       <Navbar />
@@ -141,13 +191,13 @@ const Home = () => {
             
             <h1 className="text-5xl md:text-6xl font-light leading-[1.1] mb-6 tracking-tight">
               Viva Bem e <br/>Melhor com <br/>
-              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-500 italic">
-                VELMO BLACK Drinks
+              <span className={`font-bold text-transparent bg-clip-text bg-gradient-to-r ${config.colorGradient} italic`}>
+                {config.title}
               </span>
             </h1>
             
             <p className="text-slate-400 text-base leading-relaxed max-w-[400px] mb-10">
-              Transforme sua rotina com uma bebida funcional moderna, refrescante e pensada para quem busca equilíbrio, leveza e bem-estar.
+              {config.description}
             </p>
             
             <div className="flex flex-col gap-6 mt-2 max-w-sm">
@@ -188,8 +238,8 @@ const Home = () => {
             {/* Real Product Visual */}
             <div className="relative z-20 group">
               <motion.img 
-                src="https://i.postimg.cc/SNgsZTJF/velmo-black-morango-potes-1.png" 
-                alt="Potes de Velmo Black Drink, suplemento funcional premium zero açúcar e zero calorias"
+                src={config.image} 
+                alt={`Potes de Velmo Black Drink sabor ${config.flavorText}`}
                 loading="eager"
                 className="w-full max-w-md drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
                 referrerPolicy="no-referrer"
@@ -226,8 +276,9 @@ const Home = () => {
             <BenefitCard 
               icon={Heart} 
               delay={0.3}
-              title="Sabor Irresistível" 
-              description="O prazer de uma bebida saborosa, refrescante e sem açúcar, ideal para o dia a dia." 
+              accentColor={config.benefitAccent}
+              title={`Sabor ${config.flavorText.charAt(0).toUpperCase() + config.flavorText.slice(1)} Irresistível`} 
+              description={`O prazer de uma bebida saborosa de ${config.flavorText}, refrescante e sem açúcar, ideal para o dia a dia.`} 
             />
             <BenefitCard 
               icon={Zap} 
@@ -261,7 +312,7 @@ const Home = () => {
             <div className="space-y-6">
               {[
                 "Fórmula moderna e funcional",
-                "Sabor agradável e refrescante",
+                `Sabor autêntico de ${config.flavorText}`,
                 "Sem açúcar e Zero calorias",
                 "Fácil preparo em qualquer lugar",
                 "Ideal para rotina corrida",
@@ -288,8 +339,8 @@ const Home = () => {
              <div className="w-full aspect-square max-w-lg mx-auto bg-gradient-to-br from-white/5 to-white/0 rounded-[4rem] border border-white/10 p-1 bg-clip-border flex items-center justify-center overflow-hidden group">
                <div className="relative w-full h-full bg-[#050505] rounded-[3.8rem] flex flex-col items-center justify-center p-8 overflow-hidden">
                   <motion.img 
-                    src="https://i.postimg.cc/SNgsZTJF/velmo-black-morango-potes-1.png" 
-                    alt="Detalhes do pote Velmo Black Drink"
+                    src={config.image} 
+                    alt={`Detalhes do pote Velmo Black Drink sabor ${config.flavorText}`}
                     loading="lazy"
                     className="relative z-10 w-full h-full object-contain filter drop-shadow-[0_10px_30px_rgba(29,233,182,0.2)]"
                     referrerPolicy="no-referrer"
@@ -356,7 +407,7 @@ const Home = () => {
               Dê o próximo passo para uma rotina mais leve e equilibrada.
             </p>
             <a 
-              href="https://pay.hest.com.br/33469a7a-7d47-40ee-b807-fd617640f4d1" 
+              href={config.affiliateLink} 
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-neon-green text-black px-12 py-5 rounded-sm font-bold text-lg transition-all hover:scale-105 active:scale-95 uppercase tracking-widest shadow-[0_10px_20px_-5px_rgba(29,233,182,0.3)]"

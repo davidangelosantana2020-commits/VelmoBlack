@@ -13,7 +13,8 @@ import {
   ChevronRight,
   Leaf,
   Mail,
-  Phone
+  Phone,
+  MessageCircle
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -151,7 +152,7 @@ const Home = () => {
             
             <div className="flex flex-col gap-6 mt-2 max-w-sm">
               <a 
-                href="https://pay.hest.com.br/33469a7a-7d47-40ee-b807-fd617640f4d1" 
+                href="https://wa.me/5541987905638?text="                
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-neon-green text-black font-bold py-4 px-8 rounded-sm hover:scale-[1.02] transition-transform text-sm uppercase tracking-wider text-center"
@@ -392,6 +393,13 @@ const Home = () => {
                   <Phone size={14} className="text-neon-green" />
                   41 98790-5638
                 </a>
+                <div className="flex flex-col items-center md:items-start gap-2 mt-2">
+                  <img src="https://i.postimg.cc/ykNGQ7wc/qr.png" alt="QR Code WhatsApp" className="w-24 h-24 border border-white/10 rounded-sm" />
+                  <div className="flex items-center gap-2 text-[11px] text-slate-500 uppercase tracking-widest">
+                    <MessageCircle size={12} className="text-neon-green" />
+                    Fale conosco
+                  </div>
+                </div>
               </div>
             </div>
 

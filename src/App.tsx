@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
-import Contact from './pages/Contact';
 import { 
   CheckCircle2, 
   ShieldCheck, 
@@ -460,7 +459,6 @@ const Home = () => {
               <div className="flex flex-col items-center md:items-start gap-3 text-sm text-slate-400 uppercase tracking-widest text-[11px]">
                 <Link to="/termos" className="hover:text-white transition-colors">Termos de Uso</Link>
                 <Link to="/privacidade" className="hover:text-white transition-colors">Privacidade</Link>
-                <Link to="/contato" className="hover:text-white transition-colors">Contato</Link>
               </div>
             </div>
           </div>
@@ -488,7 +486,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/termos" element={<Terms />} />
         <Route path="/privacidade" element={<Privacy />} />
-        <Route path="/contato" element={<Contact />} />
       </Routes>
     </Router>
   );

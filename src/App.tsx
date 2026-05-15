@@ -47,6 +47,12 @@ const FlavorSwitcher = () => {
       >
         Combo
       </Link>
+      <Link 
+        to="/?sabor=super-oferta"
+        className={`px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full transition-all ${currentFlavor === 'super-oferta' ? 'bg-strawberry text-white' : 'text-slate-400 hover:text-white'}`}
+      >
+        Super Oferta
+      </Link>
     </div>
   );
 };
@@ -158,14 +164,23 @@ const FLAVORS = {
     benefitAccent: "text-tangerine",
     flavorText: "combo",
     affiliateLink: "https://pay.hest.com.br/64568055-9727-4d1e-aa22-2b72976c8fac"
+  },
+  superOferta: {
+    title: "VELMO BLACK - Super Oferta",
+    description: "Aproveite esta oportunidade única para transformar sua rotina com um super desconto.",
+    image: "https://i.postimg.cc/rwdCJdHb/Velmo-Morango-v3-mega-desconta-o-2-2.png",
+    colorGradient: "from-white to-strawberry",
+    benefitAccent: "text-strawberry",
+    flavorText: "super oferta",
+    affiliateLink: "https://pay.hest.com.br/d4ac99a8-b33d-4855-8a66-4a6954ec7f59"
   }
 };
 
 const Home = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const flavorKey = (queryParams.get('sabor') as 'morango' | 'combo') || 'morango';
-  const config = FLAVORS[flavorKey] || FLAVORS.morango;
+  const flavorKey = (queryParams.get('sabor') as 'morango' | 'combo' | 'super-oferta') || 'morango';
+  const config = FLAVORS[flavorKey === 'super-oferta' ? 'superOferta' : flavorKey] || FLAVORS.morango;
 
   return (
     <div className="min-h-screen bg-[#050505]">
@@ -201,12 +216,12 @@ const Home = () => {
             
             <div className="flex flex-col gap-6 mt-2 max-w-sm">
               <a 
-                href="https://wa.me/5541987905638?text="                
+                href={config.affiliateLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-neon-green text-black font-bold py-4 px-8 rounded-sm hover:scale-[1.02] transition-transform text-sm uppercase tracking-wider text-center"
               >
-                Quero Experimentar Agora
+                COMPRAR AGORA
               </a>
               
               <div className="flex justify-between items-center px-1 opacity-60">
@@ -411,7 +426,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-neon-green text-black px-12 py-5 rounded-sm font-bold text-lg transition-all hover:scale-105 active:scale-95 uppercase tracking-widest shadow-[0_10px_20px_-5px_rgba(29,233,182,0.3)]"
             >
-              QUERO COMEÇAR AGORA
+              COMPRAR AGORA
               <ChevronRight size={20} />
             </a>
           </motion.div>

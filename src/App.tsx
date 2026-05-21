@@ -28,6 +28,17 @@ const ScrollToTop = () => {
   return null;
 };
 
+const FloatingWhatsAppButton = () => (
+  <a 
+    href="https://wa.me/5541987905638?text=" 
+    target="_blank"
+    rel="noopener noreferrer"
+    className="fixed bottom-6 right-6 z-[60] bg-neon-green text-black p-4 rounded-full shadow-[0_0_20px_rgba(29,233,182,0.4)] hover:scale-110 transition-transform"
+  >
+    <MessageCircle size={28} />
+  </a>
+);
+
 const FlavorSwitcher = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -216,7 +227,7 @@ const Home = () => {
             
             <div className="flex flex-col gap-6 mt-2 max-w-sm">
               <a 
-                href={config.affiliateLink}
+                href="https://wa.me/5541987905638?text="
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-neon-green text-black font-bold py-4 px-8 rounded-sm hover:scale-[1.02] transition-transform text-sm uppercase tracking-wider text-center"
@@ -421,7 +432,7 @@ const Home = () => {
               Dê o próximo passo para uma rotina mais leve e equilibrada.
             </p>
             <a 
-              href={config.affiliateLink} 
+              href="https://wa.me/5541987905638?text=" 
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 bg-neon-green text-black px-12 py-5 rounded-sm font-bold text-lg transition-all hover:scale-105 active:scale-95 uppercase tracking-widest shadow-[0_10px_20px_-5px_rgba(29,233,182,0.3)]"
@@ -502,6 +513,7 @@ function App() {
         <Route path="/termos" element={<Terms />} />
         <Route path="/privacidade" element={<Privacy />} />
       </Routes>
+      <FloatingWhatsAppButton />
     </Router>
   );
 }

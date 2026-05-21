@@ -154,7 +154,7 @@ const FLAVORS = {
     colorGradient: "from-white to-strawberry",
     benefitAccent: "text-strawberry",
     flavorText: "morango",
-    affiliateLink: "https://pay.hest.com.br/33469a7a-7d47-40ee-b807-fd617640f4d1"
+    affiliateLink: "https://wa.me/5541987905638?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20VELMO%20BLACK%20sabor%20Morango."
   },
   combo: {
     title: "VELMO BLACK Combo",
@@ -163,7 +163,7 @@ const FLAVORS = {
     colorGradient: "from-white to-tangerine",
     benefitAccent: "text-tangerine",
     flavorText: "combo",
-    affiliateLink: "https://pay.hest.com.br/64568055-9727-4d1e-aa22-2b72976c8fac"
+    affiliateLink: "https://wa.me/5541987905638?text=Ol%C3%A1%21%20Gostaria%20de%20saber%20mais%20sobre%20o%20Combo%20exclusivo%20do%20VELMO%20BLACK."
   },
   superOferta: {
     title: "VELMO BLACK - Super Oferta",
@@ -172,7 +172,7 @@ const FLAVORS = {
     colorGradient: "from-white to-strawberry",
     benefitAccent: "text-strawberry",
     flavorText: "super oferta",
-    affiliateLink: "https://pay.hest.com.br/d4ac99a8-b33d-4855-8a66-4a6954ec7f59"
+    affiliateLink: "https://wa.me/5541987905638?text=Ol%C3%A1%21%20Tenho%20interesse%20na%20Super%20Oferta%20do%20VELMO%20BLACK."
   }
 };
 
@@ -454,7 +454,7 @@ const Home = () => {
                   <Mail size={14} className="text-neon-green" />
                   contato@vivabememelhor.com
                 </a>
-                <a href="https://wa.me/5541987905638" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                <a href="https://wa.me/5541987905638?text=Ol%C3%A1%21%20Vim%20pelo%20site%20e%20gostaria%20de%20tirar%20algumas%20d%C3%BAvidas%20sobre%20o%20VELMO%20BLACK." target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2">
                   <Phone size={14} className="text-neon-green" />
                   41 98790-5638
                 </a>
